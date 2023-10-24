@@ -7,6 +7,7 @@ internal static class HostingExtensions
 {
     public static WebApplication ConfigureServices(this WebApplicationBuilder builder)
     {
+        var bffURL = builder.Configuration.GetValue<string>("urlBFF");
         // uncomment if you want to add a UI
         builder.Services.AddRazorPages();
 
@@ -17,7 +18,7 @@ internal static class HostingExtensions
             })
             .AddInMemoryIdentityResources(Config.IdentityResources)
             .AddInMemoryApiScopes(Config.ApiScopes)
-            .AddInMemoryClients(Config.Clients)
+            .AddInMemoryClients(Config.Clients(bffURL))
             .AddTestUsers(TestUsers.Users);
         return builder.Build();
     }

@@ -19,7 +19,7 @@ public static class Config
             new IdentityResources.Profile(),
         };
 
-    public static IEnumerable<Client> Clients =>
+    public static IEnumerable<Client> Clients(string bffURL) =>
      new List<Client>
      {
         new Client
@@ -45,12 +45,12 @@ public static class Config
             ClientSecrets = { new Secret("secret".Sha256()) },
 
             AllowedGrantTypes = GrantTypes.Code,
-            
+
             // where to redirect to after login
-            RedirectUris = { "https://localhost:4200/signin-oidc" },
+            RedirectUris = { $"{bffURL}/signin-oidc" },
 
             // where to redirect to after logout
-            PostLogoutRedirectUris = { "https://localhost:4200/signout-callback-oidc" },
+            PostLogoutRedirectUris = { $"{bffURL}/signout-callback-oidc" },
 
             AllowedScopes = new List<string>
             {
